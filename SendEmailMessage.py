@@ -2,7 +2,7 @@
 import smtplib
 
 sender = "yayaandlily@gmail.com"
-password = "WeBarked2305!"
+password = "*******" #Password removed for security
 receiver = "caitmorrison@hotmail.com"
 
 message = """\

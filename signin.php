@@ -1,40 +1,97 @@
 <?php
-session_start();
-
-$userinfo = array(
-                'user1'=>'password1',
-                'user2'=>'password2'
-                );
-
-if(isset($_GET['logout'])) {
-    $_SESSION['username'] = '';
-    header('Location:  ' . $_SERVER['PHP_SELF']);
-}
-
-if(isset($_POST['username'])) {
-    if($userinfo[$_POST['username']] == $_POST['password']) {
-        $_SESSION['username'] = $_POST['username'];
-        header('Location: "index.php" ');
-    }else {
-        //Invalid Login
-    }
+//Check if session is set/user is logged in and redirect to index if so
+if(isset($_SESSION['username']))
+	{ 
+		header("Location: index");
+} else {
+        
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html lang="en">
+
     <head>
-        <title>Login</title>
+    <meta charset="UTF-8">
+    <!-- Meta tags for device responsiveness --->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <title>My Dog Checker Login</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Stylesheet for Special Elite font -->
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Stylesheet for Bulma framework - buttons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     </head>
-    <body>
-        <?php if($_SESSION['username']): ?>
-            <p>You are logged in as <?=$_SESSION['username']?></p>
-            <p><a href="?logout=1">Logout</a></p>
-        <?php endif; ?>
-        <form name="login" action="" method="post">
-            Username:  <input type="text" name="username" value="" /><br />
-            Password:  <input type="password" name="password" value="" /><br />
-            <input type="submit" name="submit" value="Submit" />
-        </form>
-    </body>
+
+    <body class ="background">
+
+        <div class="container">
+
+            <div class="web-title">
+                <p> My Dog Checker </p>
+            </div>
+
+            <main class ="main-format-login">
+
+                <div class="login-form">
+
+                    <h1 class="big-text"> Log in to check your dog! </h1>
+                
+                    <!-- Login form -->
+                    <form name="login" action="" method="post">
+                        
+                    <label for="username">Username:</label>
+                    
+                    <input id="username" type="text" name="username" value="" required/><br/>
+
+                     <label for="password">Password:</label>
+
+                     <input id="password" type="password" name="password" value="" required/><br/>
+
+                     <input type="submit" name="submit" value="Log In" class="button is-warning is-large is-dark"/>
+                     </form>
+                </div> 
+
+                <!-- Adapted from code in reference 15-->
+                <?php
+                session_start();
+                //Array to store usernames and passwords
+                 $userinfo = array(
+                    'caitm'=>'dogwatch23',
+                    'danc'=>'dogwatch07'
+                     );
+
+                //If user is already logged in, redirect to index
+                if(isset($_GET['logout'])) {
+                $_SESSION['username'] = '';
+                header('Location: "index.php" ' . $_SERVER['PHP_SELF']);
+                }
+
+                //Checks if username and password match and redirects to index if they do. Sets the session
+                 if(isset($_POST['username'])) {
+                     if($userinfo[$_POST['username']] == $_POST['password']) {
+                        $_SESSION['username'] = $_POST['username'];
+                        header('Location: "index.php" ');
+                     } else {
+                        //Invalid Login - redirects back to login page
+                        echo "<p class='big-text'> Invalid login details, try again </p>";
+                    }
+                }
+            ?>
+
+            </main>
+
+            <div class = "footer-wrap">
+                <footer class="footer-banner">
+                    <p>My Dog Checker</p>
+                </footer>
+
+            </div>
+
+     </body>
+
 </html>

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+while true; do
+	cd /var/www/html
+	ls
+	if [ -f "playmusic.txt" ]
+	then
+	echo "File found - playing music"
+	mplayer Reggae.mp3
+	sudo rm playmusic.txt
+	else
+		echo "No file found"
+	fi
+	sleep 10
+done
